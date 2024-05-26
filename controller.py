@@ -22,6 +22,16 @@ def createTableEstudiantes():
     conn.commit()
     conn.close()
 
+def insertRowEstudiantes(idEstudiante, numero_lista, grupo, genero, ciclo_escolar):
+    conn =sql.connect("estudiantes.db")
+    cursor = conn.cursor()
+    instruccion = f"INSERT INTO estudiantes  VALUES({idEstudiante}, {numero_lista}, '{grupo}', '{genero}','{ciclo_escolar}')"
+    cursor.execute(instruccion)
+    conn.commit()
+    conn.close()
+
 if __name__ == "__main__":
     #createDb()
-    createTable()
+    #createTable()
+    #insertRowEstudiantes(1, 1, "A", "Femenino", "2023-2024")
+    insertRowEstudiantes(2, 2, "A", "Masculino", "2023-2024")
