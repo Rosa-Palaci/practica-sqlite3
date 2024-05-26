@@ -37,5 +37,28 @@ def getEstudianteByNumLista():
         exception("[Server]: Error ->")
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
     
+@app.route("/api/findsestudiante", methods=["GET"])
+def getEstudiante():
+    try:
+        fields = {}
+        if "numero_lista" in request.args:
+            fields["numero_lista"] = request.args["numero_lista"]
+        if "grupo" in request.args:
+            fields["grupo"] = request.args["grupo"]
+        if "genero" in request.args:
+            fields["genero"] = request.args["genero"]
+        if "ciclo_escolar" in request.args:
+            fields["ciclo_escolar"] = request.args["ciclo_escolar"]
+
+        estudiante = Estudiantes.query.filter_by(**fields).first()
+        if not estudiante:
+            return jsonify({"msg":"Este estudiante no existe"}), 200
+        else:
+            return jsonify(estudiante.serialize()), 200
+    except Exception:
+        exception("[Server]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+    
+
 if __name__ == "__main__":
     app.run(debug=True, port=4000)
