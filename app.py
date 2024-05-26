@@ -17,10 +17,13 @@ def home():
 def getEstudiantes():
     try:
         estudiantes = Estudiantes.query.all()
-        for estudiante in estudiantes:
-            print(estudiante)
+        toReturn = [estudiante.serialize() for estudiante in estudiantes]
+        return jsonify(toReturn), 200
+        
     except Exception:
-        print('[Server]: Error')
+        exception("[Server]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+    
     return "<h1>Estudiantes</h1>"
 
 if __name__ == "__main__":
