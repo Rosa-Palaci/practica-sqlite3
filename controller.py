@@ -1,5 +1,9 @@
 import sqlite3 as sql
 
-print("Hola que talll")
+def createDb():
+    conn =sql.connect("estudiantes.db")
+    conn.commit()
+    conn.close()
+
 if __name__ == "__main__":
-    pass
+    createDb()
