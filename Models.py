@@ -9,3 +9,12 @@ class Estudiantes(db.Model):
     grupo = db.Column(db.String(1), nullable=False)  
     genero = db.Column(db.String(50), nullable=False)  
     ciclo_escolar = db.Column(db.String(50), nullable=False)
+
+    def __str__(self):
+        return "Numero de Lista: {}. Grupo: {}. Genero: {}. Ciclo Escolar: {}".format(
+            self.numero_lista,
+            self.grupo,
+            self.genero,
+            self.ciclo_escolar
+        )
+        

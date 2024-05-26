@@ -15,7 +15,8 @@ def home():
 @app.route("/api/estudiantes")
 def getEstudiantes():
     estudiantes = Estudiantes.query.all()
-    print(estudiantes)
+    for estudiante in estudiantes:
+        print(estudiante)
     return "<h1>Estudiantes</h1>"
 
 if __name__ == "__main__":
