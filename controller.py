@@ -75,6 +75,14 @@ def updateFieldsEstudiantes():
     conn.commit()
     conn.close()
 
+def deleteRow():
+    conn =sql.connect("estudiantes.db")
+    cursor = conn.cursor()
+    instruccion = f"DELETE FROM estudiantes WHERE numero_lista like '5' "
+    cursor.execute(instruccion)
+    conn.commit()
+    conn.close()
+
 
 if __name__ == "__main__":
     #createDb()
@@ -90,4 +98,5 @@ if __name__ == "__main__":
     #insertRowsEstudiantes(estudiantes)
     #readOrdered("genero")
     #search()
-    updateFieldsEstudiantes()
+    #updateFieldsEstudiantes()
+    deleteRow()
