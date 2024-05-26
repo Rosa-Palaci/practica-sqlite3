@@ -67,6 +67,15 @@ def search():
     conn.close()
     print(datos)
 
+def updateFieldsEstudiantes():
+    conn =sql.connect("estudiantes.db")
+    cursor = conn.cursor()
+    instruccion = f"UPDATE estudiantes SET idEstudiante=4 WHERE numero_lista like '5'"
+    cursor.execute(instruccion)
+    conn.commit()
+    conn.close()
+
+
 if __name__ == "__main__":
     #createDb()
     #createTable()
@@ -80,4 +89,5 @@ if __name__ == "__main__":
     }
     #insertRowsEstudiantes(estudiantes)
     #readOrdered("genero")
-    search()
+    #search()
+    updateFieldsEstudiantes()
