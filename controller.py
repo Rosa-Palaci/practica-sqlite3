@@ -57,6 +57,16 @@ def readOrdered(field):
     conn.close()
     print(datos)
 
+def search():
+    conn =sql.connect("estudiantes.db")
+    cursor = conn.cursor()
+    instruccion = f"SELECT * FROM estudiantes WHERE genero like 'fe%'"
+    cursor.execute(instruccion)
+    datos = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    print(datos)
+
 if __name__ == "__main__":
     #createDb()
     #createTable()
@@ -69,4 +79,5 @@ if __name__ == "__main__":
         (5, 5, "A", "Masculino", "2023-2024")
     }
     #insertRowsEstudiantes(estudiantes)
-    readOrdered("genero")
+    #readOrdered("genero")
+    search()
