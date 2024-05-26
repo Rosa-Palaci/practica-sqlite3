@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from Models import db, Estudiantes
 from logging import exception
 
@@ -13,7 +13,7 @@ db.init_app(app)
 def home():
     return "<h1>Hola Rosy</h1>"
 
-@app.route("/api/estudiantes")
+@app.route("/api/estudiantes", methods=["GET"])
 def getEstudiantes():
     try:
         estudiantes = Estudiantes.query.all()
@@ -24,7 +24,18 @@ def getEstudiantes():
         exception("[Server]: Error ->")
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
     
-    return "<h1>Estudiantes</h1>"
-
+@app.route("/api/estudiante", methods=["GET"])
+def getEstudianteByNumLista():
+    try:
+        numero_listaEstudiante = request.args["numero_lista"]
+        estudiante = Estudiantes.query.filter_by(numero_lista = numero_listaEstudiante).first()
+        if not estudiante:
+            return jsonify({"msg":"Este estudiante no existe"}), 200
+        else:
+            return jsonify(estudiante.serialize()), 200
+    except Exception:
+        exception("[Server]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+    
 if __name__ == "__main__":
     app.run(debug=True, port=4000)
