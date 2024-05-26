@@ -1,13 +1,12 @@
 import sqlite3 as sql
 
-DB_PATH = "C:\\Users\\palac\\OneDrive\\Escritorio\\practica-sqlites3\\database\\estudiantes.db"
+DB_PATH = "C:\\Users\\palac\\OneDrive\\Escritorio\\practica-sqlites3\\database\\estudiantes.db\\"
 
 def createTableEstudiantes():
     conn =sql.connect("estudiantes.db")
     cursor = conn.cursor()
     cursor.execute(
         """CREATE TABLE estudiantes(
-            idEstudiante INTEGER PRIMARY KEY,
             numero_lista INTEGER,
             grupo VARCHAR,
             genero VARCHAR,
@@ -22,11 +21,11 @@ def addValuesEstudiantes():
     conn =sql.connect("estudiantes.db")
     cursor = conn.cursor()
     data = {
-        (0, 1, "A", "Masculino", "2023-2024"),
-        (1, 2, "A", "Femenino", "2023-2024"),
-        (2, 3, "A", "Masculino", "2023-2024")
+        (1, "A", "Masculino", "2023-2024"),
+        (2, "A", "Femenino", "2023-2024"),
+        (3, "A", "Masculino", "2023-2024")
     }
-    cursor.executemany("""INSERT INTO estudiantes VALUES(?, ?, ?, ?, ?)""", data)
+    cursor.executemany("""INSERT INTO estudiantes VALUES(?, ?, ?, ?)""", data)
     conn.commit()
     conn.close()
 
