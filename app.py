@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, jsonify
 from Models import db, Estudiantes
+from logging import exception
 
 
 app = Flask(__name__)
@@ -14,9 +15,12 @@ def home():
 
 @app.route("/api/estudiantes")
 def getEstudiantes():
-    estudiantes = Estudiantes.query.all()
-    for estudiante in estudiantes:
-        print(estudiante)
+    try:
+        estudiantes = Estudiantes.query.all()
+        for estudiante in estudiantes:
+            print(estudiante)
+    except Exception:
+        print('[Server]: Error')
     return "<h1>Estudiantes</h1>"
 
 if __name__ == "__main__":
