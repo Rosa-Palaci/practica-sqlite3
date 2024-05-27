@@ -84,6 +84,7 @@ def registro():
         exception("\n[SERVER]: Error in route /registroEstudiantes. Log: \n")
         return jsonify({"msg": "Algo ha salido mal"}), 500
 
+#Filtrar datos
 @app.route("/api/buscardorestudiante", methods=["POST"])
 def buscardorEstudianteForm():
     try:
