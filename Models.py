@@ -10,6 +10,14 @@ class Estudiantes(db.Model):
     genero = db.Column(db.String(50), nullable=False)  
     ciclo_escolar = db.Column(db.String(50), nullable=False)
 
+    def __init__(self, numero_lista, grupo, genero, ciclo_escolar):
+        super().__init__()
+        self.numero_lista = numero_lista
+        self.grupo = grupo
+        self.genero = genero
+        self.ciclo_escolar = ciclo_escolar
+        
+
     def __str__(self):
         return "Numero de Lista: {}.\n Grupo: {}.\n Genero: {}.\n Ciclo Escolar: {}".format(
             self.numero_lista,

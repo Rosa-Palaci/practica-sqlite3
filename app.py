@@ -11,7 +11,7 @@ db.init_app(app)
 # Aquí empiezan las rutas
 @app.route("/")
 def home():
-    return "<h1>Hola Rosy</h1>"
+    return render_template("registro.html")
 
 @app.route("/api/estudiantes", methods=["GET"])
 def getEstudiantes():
@@ -68,8 +68,17 @@ def registro():
         grupo = request.form["grupo"]
         genero = request.form["genero"]
         ciclo_escolar = request.form["ciclo_escolar"]
+
+        estudiante = Estudiantes(numero_lista, str(grupo), str(genero), str(ciclo_escolar))
+
+        db.session.add(estudiante)
+        db.session.commit()
+
+        return jsonify(estudiante.serialize()), 200
+
     except Exception:
-        pass
+        exception("\n[SERVER]: Error in route /registroEstudiantes. Log: \n")
+        return jsonify({"msg": "Algo ha salido mal"}), 500
     
 
 if __name__ == "__main__":
