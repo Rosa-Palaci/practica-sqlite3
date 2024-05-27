@@ -11,6 +11,18 @@ db.init_app(app)
 # Aquí empiezan las rutas
 @app.route("/")
 def home():
+    return render_template("home.html")
+
+@app.route("/loginEstudiantes")
+def loginEstudiantes():
+    return render_template("login_estudiantes.html")
+
+@app.route("/loginProfesores")
+def loginProfesores():
+    return render_template("login_profesores.html")
+
+@app.route("/registro")
+def registro():
     return render_template("registro.html")
 
 @app.route("/buscadorestudiante", methods = ["GET"])
@@ -66,7 +78,7 @@ def getEstudiante():
 #Añadir estudiantes y buscar mediante formularios
 
 @app.route("/registroEstudiantes", methods = ["POST"])
-def registro():
+def registroEstudiantes():
     try:
         numero_lista = request.form["numero_lista"]
         grupo = request.form["grupo"]
