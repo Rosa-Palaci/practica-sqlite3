@@ -3,7 +3,7 @@ from Models import db, Estudiantes
 from logging import exception
 
 
-app = Flask(__numero_lista__)
+app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///C:/Users/palac/OneDrive/Escritorio/practica-sqlites3/database/estudiantes.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
@@ -14,7 +14,7 @@ def home():
     return render_template("registro.html")
 
 @app.route("/buscadorestudiante", methods = ["GET"])
-def buscadorestudiante():
+def buscadorEstudiante():
     return render_template("buscadorestudiante.html")
 
 @app.route("/api/estudiantes", methods=["GET"])
@@ -85,11 +85,15 @@ def registro():
         return jsonify({"msg": "Algo ha salido mal"}), 500
 
 @app.route("/api/buscardorestudiante", methods=["POST"])
-def buscardorestudiante():
+def buscardorEstudianteForm():
     try:
         numEstudiante = request.form["numero_lista"]
+        grupoEstudiante = request.form["grupo"]
 
-        estudiante = Estudiantes.query.filter(Estudiantes.numero_lista.like(f"%{numEstudiante}%")).first()
+        estudiante = Estudiantes.query.filter(
+            Estudiantes.numero_lista.like(f"%{numEstudiante}%"),
+            Estudiantes.grupo.like(f"%{grupoEstudiante}%")
+        ).first()
         if not estudiante:
             return jsonify({"msg": "Este estudiante no existe"}), 200
         else:
@@ -100,5 +104,5 @@ def buscardorestudiante():
         return jsonify({"msg": "Ha ocurrido un error"}), 500
     
 
-if __numero_lista__ == "__main__":
+if __name__ == "__main__":
     app.run(debug=True, port=4000)
