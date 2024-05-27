@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from Models import db, Estudiantes
 from logging import exception
 
@@ -12,6 +12,10 @@ db.init_app(app)
 @app.route("/")
 def home():
     return "<h1>Hola Rosy</h1>"
+
+@app.route("/registroEstudiantes")
+def registro():
+    return render_template("registro.html")
 
 @app.route("/api/estudiantes", methods=["GET"])
 def getEstudiantes():
