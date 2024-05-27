@@ -13,10 +13,6 @@ db.init_app(app)
 def home():
     return "<h1>Hola Rosy</h1>"
 
-@app.route("/registroEstudiantes")
-def registro():
-    return render_template("registro.html")
-
 @app.route("/api/estudiantes", methods=["GET"])
 def getEstudiantes():
     try:
@@ -62,6 +58,18 @@ def getEstudiante():
     except Exception:
         exception("[Server]: Error ->")
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
+    
+#Añadir estudiantes y buscar mediante formularios
+
+@app.route("/registroEstudiantes", methods = ["POST"])
+def registro():
+    try:
+        numero_lista = request.form["numero_lista"]
+        grupo = request.form["grupo"]
+        genero = request.form["genero"]
+        ciclo_escolar = request.form["ciclo_escolar"]
+    except Exception:
+        pass
     
 
 if __name__ == "__main__":
